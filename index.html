@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Covert Images</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>Covert Images</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="#">
+                            <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+                            <div id="imgTest"></div>
+                            <script type='text/javascript'>
+                                function encodeImageFileAsURL() {
+
+                                    var filesSelected = document.getElementById("inputFileToLoad").files;
+                                    if (filesSelected.length > 0) {
+                                        var fileToLoad = filesSelected[0];
+
+                                        var fileReader = new FileReader();
+
+                                        fileReader.onload = function (fileLoadedEvent) {
+                                            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                                            var newImage = document.createElement('img');
+                                            newImage.src = srcData;
+
+                                            document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+                                            alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+                                            console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+                                        }
+                                        fileReader.readAsDataURL(fileToLoad);
+                                    }
+                                }
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</body>
+
+</html>
